@@ -57,6 +57,13 @@ module.exports = function(grunt) {
       reportFile = data.reportFile || data.jsOutputFile + '.report.txt';
     }
 
+    if (data.sourceMap) {
+      if (!grunt.file.isPathAbsolute(data.sourceMap)) {
+        data.sourceMap = path.resolve('./') + '/' + data.sourceMap;
+      }
+      command += ' --create_source_map "' + data.sourceMap + '"';
+    }
+
     if (data.externs) {
       data.externs = grunt.file.expand(data.externs);
       command += ' --externs ' + data.externs.join(' --externs ');
